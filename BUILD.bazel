@@ -3,35 +3,93 @@ load(
     "nodejs_binary",
 )
 
+# filegroup(
+#     name = "react_sources",
+#     srcs = glob(
+#         [
+#             "src/**",
+#             "public/**",
+#             "*",
+#             # "node_modules/**"
+#         ],
+#         exclude = [
+#             "**/test/**",
+#             # "node_modules/**/test/**",
+#             # "node_modules/**/examples/**",
+#             # "node_modules/**/docs/**",
+#         ],
+#     ),
+# )
 
 filegroup(
-  name = "react_sources",
-  srcs = glob([
-      "src/**",
-      "public/**",
-      "*",
-      # "node_modules/**"
-      ],
-  	  exclude = [
-        "**/test/**",
-        # "node_modules/**/test/**",
-        # "node_modules/**/examples/**",
-        # "node_modules/**/docs/**",
-    ],
-	)
+    name = "react_sources",
+    srcs = glob(
+        [
+            "src/**",
+            "public/**",
+            "package.json",
+            "yarn.lock",
+            "node_modules/**",
+        ],
+        exclude = [
+            "**/test/**",
+        ],
+    ),
 )
 
 nodejs_binary(
-    name = "parcel",
-    entry_point = "parcel",
-    visibility = ["//visibility:public"],
-    node_modules = "@yarn_install//:node_modules",
-    args=  ["build", "./public/index.html", "--public-url", "./"],
+    name = "parcel_bin",
+    # args = [
+    #     "build",
+    #     "./public/index.html",
+    #     "--public-url",
+    #     "./",
+    # ],
     data = [
         ":react_sources",
-        "@yarn_install//:node_modules",
-    ]
+        # "@yarn_install//:node_modules",
+    ],
+    entry_point = "parcel-bundler/bin/cli.js",
+    node_modules = "@yarn_install//:node_modules",
+    visibility = ["//visibility:public"],
 )
+
+genrule(
+    name = "parcel",
+    srcs = [
+        ":react_sources",
+        # "@yarn_install//:node_modules",
+    ],
+    outs = [
+        # "dist/index.html",
+        # "dist/514e40413f71c00a10a6aa39d5bc719c.ico",
+        "bundle",
+        # "dist",
+    ],
+    # cmd = "$(location :parcel_bin) build ./public/index.html",
+    cmd = "$(location :parcel_bin) build ./public/index.html --out-dir=$(location bundle)",
+    # cmd = "$(location :parcel_bin) build ./public/index.html",
+    # cmd = "$(location :parcel_bin) build ./public/index.html --public-url ./",
+    tools = [":parcel_bin"],
+)
+
+# TODO: start node js server to serve files
+# nodejs_binary(
+#     name = "parcel_bin",
+#     # args = [
+#     #     "build",
+#     #     "./public/index.html",
+#     #     "--public-url",
+#     #     "./",
+#     # ],
+#     data = [
+#         ":react_sources",
+#         # "@yarn_install//:node_modules",
+#     ],
+#     entry_point = "parcel-bundler/bin/cli.js",
+#     node_modules = "@yarn_install//:node_modules",
+#     visibility = ["//visibility:public"],
+# )
 
 # genrule(
 #     name = "lms",
