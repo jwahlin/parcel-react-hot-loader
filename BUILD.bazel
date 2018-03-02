@@ -1,0 +1,53 @@
+load(
+    "@build_bazel_rules_nodejs//:defs.bzl",
+    "nodejs_binary",
+)
+
+
+filegroup(
+  name = "react_sources",
+  srcs = glob([
+      "src/**",
+      "public/**",
+      "*",
+      # "node_modules/**"
+      ],
+  	  exclude = [
+        "**/test/**",
+        # "node_modules/**/test/**",
+        # "node_modules/**/examples/**",
+        # "node_modules/**/docs/**",
+    ],
+	)
+)
+
+nodejs_binary(
+    name = "parcel",
+    entry_point = "parcel",
+    visibility = ["//visibility:public"],
+    node_modules = "@yarn_install//:node_modules",
+    args=  ["build", "./public/index.html", "--public-url", "./"],
+    data = [
+        ":react_sources",
+        "@yarn_install//:node_modules",
+    ]
+)
+
+# genrule(
+#     name = "lms",
+#     srcs = [
+#         "//:package.json",
+#         "@npm_install//:node_modules/react-scripts/config/webpack.config.prod.js",
+#         "@npm_install//:node_modules/.bin/react-scripts",
+#         glob(["@npm_install//:node_modules/**"]),
+#         ":react-sources",
+#         ],
+#     outs = ["jk"],
+#     cmd = "$(location @npm_install//:node_modules/.bin/react-scripts) build",
+
+#     # cmd = "ln -s $(location //:package.json) $(location @npm_install//.) && $(location @npm_install//:node_modules/.bin/react-scripts) build > $@",
+#     # cmd = "echo $(location //:package.json) > $@",
+#     # cmd = "ls $(location @npm_install//:node_modules/.bin/react-scripts)/.. > $@",
+#     # cmd = "ln -s ./package.json external/npm_install/ && cat external/npm_install/package.json > $@",
+#     # cmd = "tree > $@",
+# )
