@@ -7,8 +7,10 @@
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1"
   },
- "devDependencies": {
-    "parcel-bundler": "^1.5.1"
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "parcel-bundler": "^1.6.2",
+    "typescript": "^2.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -17,5 +19,12 @@
     "eject": "react-scripts eject"
   },
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      [
+        "env"
+      ]
+    ]
+  }
 }
