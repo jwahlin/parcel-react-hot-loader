@@ -9,11 +9,3 @@ git_repository(
 load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
 
 node_repositories(package_json = ["//:package.json"])
-
-load("@build_bazel_rules_nodejs//:defs.bzl", "yarn_install")
-
-yarn_install(
-    name = "yarn_install",
-    package_json = "//:package.json",
-    yarn_lock = "//:yarn.lock",
-)
