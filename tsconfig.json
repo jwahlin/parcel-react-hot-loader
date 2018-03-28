@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "lib": [
+            "dom",
+            "es6",
+            "es2017"
+        ],
+        "removeComments": true
+    },
+    "parcelTsPluginOptions": {
+        "transpileOnly": false
+    }
+}
