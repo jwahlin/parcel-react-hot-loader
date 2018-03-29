@@ -11,6 +11,7 @@ filegroup(
             "public/**",
             "package.json",
             "yarn.lock",
+            "tsconfig.json",
         ],
         exclude = [
             "**/test/**",
@@ -48,6 +49,8 @@ nodejs_binary(
     ],
     data = [
         ":react_sources",
+        "@net_tcncloud_git_m_protos//typescript:api_v0alpha_ts_proto",
+        "@net_tcncloud_git_m_protos//typescript:matrix_labels_ts_proto",
     ],
     entry_point = "parcel-bundler/bin/cli.js",
     node_modules = ":node_modules",
@@ -63,6 +66,8 @@ nodejs_binary(
     ],
     data = [
         ":react_sources",
+        "@net_tcncloud_git_m_protos//typescript:api_v0alpha_ts_proto",
+        "@net_tcncloud_git_m_protos//typescript:matrix_labels_ts_proto",
     ],
     entry_point = "parcel-bundler/bin/cli.js",
     node_modules = ":node_modules",

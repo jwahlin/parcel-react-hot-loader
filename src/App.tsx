@@ -1,9 +1,24 @@
 import * as React from 'react';
 import './App.css';
+import * as Lbl from '../external/net_tcncloud_git_m_protos/typescript/api/v0alpha/labels_pb'
+import * as logo from './logo.svg';
 
-const logo = require('./logo.svg');
+function testType(label: Lbl.Label.AsObject) {
+    let newlabel = new Lbl.Label()
+    console.log(newlabel)
+    console.log(label.labelName + " is referenced by key " + label.nodeId)
+}
 
 function App() {
+    let testObject = {
+        nodeId: "abc123",
+        labelName: "My label",
+        type: 1 // Should pass
+        // type: "asdf" //Should fail
+    }
+
+
+    testType(testObject)
     return (
         <div className="App">
             <div className="App-header">
