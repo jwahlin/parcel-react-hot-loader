@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "google-protobuf": "^3.5.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1"
@@ -11,15 +10,13 @@
   "devDependencies": {
     "@types/react": "^16.1.0",
     "babel-preset-env": "^1.6.1",
-    "parcel-bundler": "^1.6.2",
-    "parcel-plugin-typescript": "^0.7.0",
-    "typescript": "^2.8.1"
+    "parcel-bundler": "^1.7.0",
+    "react-hot-loader": "^4.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "parcel build public/index.html",
+    "start": "parcel public/index.html",
+    "start-symlink": "parcel public/symlink-index.html"
   },
   "main": "index.js",
   "license": "MIT",
